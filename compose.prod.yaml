@@ -1,0 +1,14 @@
+services:
+  db:
+    restart: unless-stopped
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+volumes:
+  pg_data:
