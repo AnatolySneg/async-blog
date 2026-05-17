@@ -1,0 +1,11 @@
+services:
+  db:
+    restart: no
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+
+    volumes:
+      - ./.dockers:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
