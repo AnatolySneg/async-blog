@@ -15,3 +15,5 @@ wheels/
 # Credentials
 .env
 
+# Docker compose volumes
+.dockers
