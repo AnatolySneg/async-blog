@@ -16,7 +16,10 @@ class Settings(BaseSettings):
     """
     # General settings
     PROJECT_NAME: str = "FastAPI Async-blog"
-    DEBUG: bool = Field(True, description="Whether the app is running in production mode")
+    # Uses to prevent leaking of sensitive information
+    PRODUCTION: bool = Field(..., description="Whether the app is running in production mode")
+    # Uses for local console outputs and debugging
+    LOCAL_DEVELOPMENT: bool = False if PRODUCTION else Field(False, description="Whether the app is running in local development mode")
 
     # Database settings with type validation
     POSTGRES_USER: str = Field(..., description="Database user")
