@@ -28,6 +28,14 @@ class Settings(BaseSettings):
     POSTGRES_HOST: str = Field(..., description="Database host")
     POSTGRES_PORT: int = Field(5432, description="Database port")
 
+    # SQLAlchemy pool settings
+    # Base number of connections
+    POSTGRES_POOL_SIZE: int = Field(5, description="Base number of database connections in the pool")
+    # Maximum number of additional connections during peak load
+    POSTGRES_MAX_OVERFLOW: int = Field(10, description="Maximum number of temporary connections above pool_size")
+    # Number of seconds a query will wait in queue if all connections are busy
+    POSTGRES_POOL_TIMEOUT: int = Field(30, description="Seconds to wait before giving up on getting a connection")
+
     # Configuration for where pydantic will retrieve data from
     model_config = SettingsConfigDict(
         env_file=os.path.join(BASE_DIR, ".env"),
