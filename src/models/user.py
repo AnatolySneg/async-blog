@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import enum
 from typing import List
 from .base import Base
@@ -33,8 +33,8 @@ class User(Base):
 
     role: Mapped[UserRole] = mapped_column(SQLEnum(UserRole), default="user")
 
-    created_at: Mapped[str] = mapped_column(DateTime, server_default=func.now())
-    updated_at: Mapped[str] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())
 
     posts: Mapped[List["Post"]] = relationship(back_populates="author", cascade="all, delete-orphan")
 
