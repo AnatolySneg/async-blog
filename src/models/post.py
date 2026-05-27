@@ -1,14 +1,14 @@
 from datetime import datetime
 import enum
 from typing import List
-from base import Base
+from .base import Base
 
 from sqlalchemy import String, DateTime, Boolean, Enum as SQLEnum
 from sqlalchemy import func, ForeignKey, Text
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .user import User
+# from .user import User
 
 
 class PostStatus(str, enum.Enum):

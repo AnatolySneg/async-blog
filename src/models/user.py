@@ -1,14 +1,14 @@
 import datetime
 import enum
 from typing import List
-from base import Base
+from .base import Base
 
 from sqlalchemy import String, DateTime, Boolean, Enum as SQLEnum
 from sqlalchemy import func
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .post import Post
+# from .post import Post
 
 
 class UserRole(str, enum.Enum):
@@ -36,5 +36,5 @@ class User(Base):
     created_at: Mapped[str] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[str] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())
 
-    posts: Mapped[List[Post]] = relationship(back_populates="author", cascade="all, delete-orphan")
+    posts: Mapped[List["Post"]] = relationship(back_populates="author", cascade="all, delete-orphan")
 
