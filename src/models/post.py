@@ -34,9 +34,9 @@ class Post(Base):
         default=PostStatus.draft
     )
 
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), onupdate=func.now())
-    published_at: Mapped[datetime | None] = mapped_column(DateTime)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
+    published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     # Relationship with the author (Many-to-One)
     author: Mapped["User"] = relationship(back_populates="posts")
