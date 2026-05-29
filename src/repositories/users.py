@@ -35,7 +35,7 @@ class UserRepository:
         result = await self.session.execute(stmt)
         return result.scalars().first()
 
-    async def create(self, **user_data) -> User:
+    async def create_user(self, **user_data) -> User:
         new_user = User(**user_data)
         self.session.add(new_user)
         try:
