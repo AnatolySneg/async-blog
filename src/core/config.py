@@ -21,6 +21,11 @@ class Settings(BaseSettings):
     # Uses for local console outputs and debugging
     LOCAL_DEVELOPMENT: bool = False if PRODUCTION else Field(False, description="Whether the app is running in local development mode")
 
+    # JWT settings
+    JWT_SECRET_KEY: str = Field(..., description="Secret key for JWT authentication")
+    JWT_ALGORITHM: str = Field("HS256", description="Algorithm used for JWT authentication")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(60, description="Expiration time of access tokens in minutes")
+
     # Database settings with type validation
     POSTGRES_USER: str = Field(..., description="Database user")
     POSTGRES_PASSWORD: str = Field(..., description="Database password")
