@@ -1,5 +1,5 @@
 from datetime import datetime
-import enum
+
 from typing import List
 from .base import Base
 
@@ -8,22 +8,16 @@ from sqlalchemy import func
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-# from .post import Post
+from .enums import UserRole
 
-
-class UserRole(str, enum.Enum):
-    user="user"
-    moderator="moderator"
-    banned="banned"
-    deleted="deleted"
 
 class User(Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(String(32), unique=True, index=True)
-    firstName: Mapped[str] = mapped_column(String(32), nullable=False)
-    lastName: Mapped[str] = mapped_column(String(32), nullable=False)
+    first_name: Mapped[str] = mapped_column(String(32), nullable=False)
+    last_name: Mapped[str] = mapped_column(String(32), nullable=False)
 
     email: Mapped[str] = mapped_column(String(255), nullable=False, unique=True, index=True)
 
