@@ -22,6 +22,19 @@ class UserRepository:
         result = await self.session.execute(stmt)
         return result.scalars().first()
 
+    async def get_by_id(self, user_id: int) -> User | None:
+        """
+        Retrieves a user instance from the database based on the provided user id.
+
+        :param user_id: The unique identifier of the user to be retrieved.
+        :type user_id: int
+        :return: The user object found or None if no matching user exists.
+        :rtype: User | None
+        """
+        stmt = select(User).where(User.id == user_id)
+        result = await self.session.execute(stmt)
+        return result.scalars().first()
+
     async def create(self, **user_data) -> User:
         new_user = User(**user_data)
         self.session.add(new_user)
