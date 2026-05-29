@@ -3,6 +3,8 @@ import jwt
 from passlib.context import CryptContext
 from src.core.config import settings
 
+from fastapi import HTTPException,status
+
 class SecurityHandler:
     """
     Utility class for handling security operations including password
@@ -73,8 +75,6 @@ class SecurityHandler:
             payload = jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])  # Decode token
             return payload
         except jwt.ExpiredSignatureError:
-            #TODO: Raising error with http status code
-            return None
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token has expired")
         except jwt.InvalidTokenError:
-            # TODO: Raising error with http status code
-            return None
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid token")
