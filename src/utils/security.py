@@ -3,7 +3,7 @@ import jwt
 from passlib.context import CryptContext
 from src.core.config import settings
 
-class SecurityUtils:
+class SecurityHandler:
     """
     Utility class for handling security operations including password
     hashing, password verification, and JWT token management.
