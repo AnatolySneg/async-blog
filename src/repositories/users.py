@@ -40,10 +40,11 @@ class UserRepository:
         self.session.add(new_user)
         try:
             await self.session.commit()
-            await self.session.refresh(new_user)
-            return new_user
         except Exception as e:
             await self.session.rollback()
             #TODO: log error and raise http exception
             #raise
             return None
+
+        await self.session.refresh(new_user)
+        return new_user
