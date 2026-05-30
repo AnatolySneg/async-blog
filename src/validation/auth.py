@@ -10,22 +10,33 @@ class UserRegisterSchema(BaseModel):
     password: str = Field(..., min_length=8, max_length=100)
 
     @field_validator('password')
-    def password_complexity(cls, v: str) ->str:
+    def password_complexity(cls, value: str) ->str:
         msg = []
 
-        if not re.search(r'\d', v):
+        if not re.search(r'\d', value):
             msg.append('Password must contain at least one number')
 
-        if not re.search(r'[a-z]', v):
+        if not re.search(r'[a-z]', value):
             msg.append('Password must contain at least one lowercase letter')
 
-        if not re.search(r'[A-Z]', v):
+        if not re.search(r'[A-Z]', value):
             msg.append('Password must contain at least one uppercase letter')
 
-        if not re.search(r'[!@#$%^&*()?]', v):
+        if not re.search(r'[!@#$%^&*()?]', value):
             msg.append('Password must contain at least one special character (!@#$%^&*?)')
 
         if msg:
             raise ValueError(f"{'; '.join(msg)}.")
 
-        return v
+        return value
+    
+    
+class UserResponse(BaseModel):                                                                                                                                                                                    
+    id: int
+    username: str
+    email: EmailStr
+
+class RegistrationResponse(BaseModel):
+    user: UserResponse
+    access_token: str
+    token_type: str = "bearer"

@@ -1,2 +1,2 @@
-from auth import UserRegisterSchema
-from base import StandardResponse
+from .auth import UserRegisterSchema, RegistrationResponse
+from .base import StandardResponse
