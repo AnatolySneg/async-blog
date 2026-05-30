@@ -3,7 +3,7 @@ name = "async-blog"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.136.1",
     "asyncpg>=0.31.0",
@@ -15,4 +15,6 @@ dependencies = [
     "pip>=26.1.1",
     "pyjwt>=2.13.0",
     "passlib[bcrypt]>=1.7.4",
+    "uvicorn>=0.48.0",
+    "pydantic[email]>=2.13.4",
 ]
