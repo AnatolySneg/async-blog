@@ -14,7 +14,7 @@ dependencies = [
     "python-slugify>=8.0.4",
     "pip>=26.1.1",
     "pyjwt>=2.13.0",
-    "passlib[bcrypt]>=1.7.4",
     "uvicorn>=0.48.0",
     "pydantic[email]>=2.13.4",
+    "bcrypt>=5.0.0",
 ]

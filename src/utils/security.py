@@ -1,32 +1,35 @@
+import bcrypt
 from datetime import datetime, timedelta, timezone
 import jwt
-from passlib.context import CryptContext
 from src.core.config import settings
-
 from fastapi import HTTPException,status
 
 class SecurityHandler:
-    """
-    Utility class for handling security operations including password
-    hashing, password verification, and JWT token management.
 
-    This class provides methods to securely hash passwords, verify
-    passwords using hashed values, create JSON Web Tokens (JWT) for
-    authentication, and decode JWT tokens to extract its payload.
-
-    :ivar NONE
-    :type NONE: NONE
-    """
-    # Hashing password
-    _pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")  # Setup password hashing context
 
     @classmethod
     def hash_password(cls, password: str) -> str:
-        return cls._pwd_context.hash(password)
+        # Encode the password as bytes using UTF-8
+        password_bytes = password.encode("utf-8")
+        # Generate a random salt
+        salt = bcrypt.gensalt()
+        # Hash the password bytes with the generated salt
+        hashed_password = bcrypt.hashpw(password_bytes, salt)
+        # Decode the hashed password to a UTF-8 string and return it
+        return hashed_password.decode("utf-8")
 
     @classmethod
     def verify_password(cls, plain_password: str, hashed_password: str) -> bool:
-        return cls._pwd_context.verify(plain_password, hashed_password)
+        # Convert the plain password to bytes using UTF-8 encoding
+        password_bytes = plain_password.encode("utf-8")
+        # Convert the hashed password to bytes using UTF-8 encoding
+        hashed_password_bytes = hashed_password.encode("utf-8")
+        try:
+            # Verify the plain password against the hashed password
+            return bcrypt.checkpw(password_bytes, hashed_password_bytes)
+        except Exception:
+            # Return False if an exception occurs during verification
+            return False
 
     # JWT token
     @classmethod
