@@ -1,5 +1,6 @@
 from src.models.user import User
 from src.utils.security import SecurityHandler
+from src.validation.auth import RegistrationResponse
 
 class AuthenticationService:
     def __init__(self, user_repo):
@@ -20,7 +21,7 @@ class AuthenticationService:
 
         access_token: str = SecurityHandler.create_access_token(data={"sub": str(user.id), "role": user.role})
 
-        return {"user": user, "access_token": access_token}
+        return RegistrationResponse(user=user, access_token=access_token).model_dump()
 
     async def login(self, email: str, password: str) -> User:
         pass # TODO: Implement user login
