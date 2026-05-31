@@ -1,6 +1,6 @@
 import re
 
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator, ConfigDict
 
 class UserRegisterSchema(BaseModel):
     username: str = Field(..., min_length=3, max_length=32)
@@ -35,6 +35,10 @@ class UserResponse(BaseModel):
     id: int
     username: str
     email: EmailStr
+    first_name: str
+    last_name: str
+
+    model_config = ConfigDict(from_attributes=True)
 
 class RegistrationResponse(BaseModel):
     user: UserResponse
